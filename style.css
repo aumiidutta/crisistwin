@@ -1,0 +1,68 @@
+/* Common in all pages: bar, navbar, footer*/
+
+
+/*bar above & btw nav bar*/
+.bar{
+    background-color: black;
+    height: 2px;
+    width: 100%;
+}
+
+
+/* Navigation bar */
+.navbar{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.navbar p{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+
+/*Logo section*/
+.logo{
+    margin-bottom: 50px;
+}
+
+.logo img{
+    width: 100%;
+    height: auto;
+}
+
+
+/* Continent card section in home page */
+.continent-card{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 50px;
+}
+
+.card{
+    border: 2px solid blue;
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.card img{
+    width: 400px;
+    height: 400px;
+    border: 2px solid black;
+}
+
+
+/* Footer */
+.footer{
+    background-color: brown;
+    color: white;
+    text-align: center;
+    padding: 10px;
+}
