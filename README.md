@@ -63,14 +63,11 @@ This project is informational only. Emergency and support numbers may change wit
 		<img src="https://github.com/aumiidutta.png" alt="aumiidutta avatar" width="100" height="100" style="border-radius:50%;" />
 	</a>
 
-    <!-- Add your profile details -->
-    <a href="https://github.com/edy-101" target="_blank" rel="noopener noreferrer">
-		<img src="https://github.com/edy-101.png" alt="edy-101 avatar" width="100" height="100" style="border-radius:50%;" />
-	</a>
+    <!-- Add your contributor details -->
 </p>
 
 ---
-Have an improvement in mind? Open an issue or submit a pull request.
+### Have an improvement in mind? Open an issue or submit a pull request.
 ---
 
 © 2025 Crisistwin
