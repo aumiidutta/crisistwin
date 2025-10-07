@@ -28,6 +28,55 @@
 
 
 
+        <main>
+            <h1>Asia</h1>
+            <div class="country-search">
+                <input id="country-filter" type="text" placeholder="Filter countries or helpline keyword..." aria-label="Filter countries">
+                <span id="filter-stats" aria-live="polite"></span>
+            </div>
+            <p id="countries-count"></p>
+            <div class="country-grid" id="country-grid"></div>
+            <script id="continent-data" type="application/json">{
+                "continent": "Asia",
+                "updated": "2025-10-07",
+                "countries": [
+                    {"name": "India","iso2": "IN","isd": "+91","capital": "New Delhi","helplines": {"emergency": "112","police": "100","fire": "101","ambulance": "102","women": "1091"}},
+                    {"name": "China","iso2": "CN","isd": "+86","capital": "Beijing","helplines": {"police": "110","fire": "119","ambulance": "120","traffic": "122"}},
+                    {"name": "Japan","iso2": "JP","isd": "+81","capital": "Tokyo","helplines": {"police": "110","ambulance_fire": "119","marine_emergency": "118"}},
+                    {"name": "Indonesia","iso2": "ID","isd": "+62","capital": "Jakarta","helplines": {"police": "110","ambulance": "118","fire": "113"}}
+                ]
+            }</script>
+            <script>
+            (function(){
+                const raw = document.getElementById('continent-data').textContent.trim();
+                let data; try { data = JSON.parse(raw); } catch(e){ console.error('Invalid JSON', e); return; }
+                const grid = document.getElementById('country-grid');
+                const countEl = document.getElementById('countries-count');
+                const filterInput = document.getElementById('country-filter');
+                const filterStats = document.getElementById('filter-stats');
+
+                function render(list){
+                    grid.innerHTML='';
+                    list.forEach(c => {
+                        const card = document.createElement('article');
+                        card.className = 'country-card';
+                        const helplines = Object.entries(c.helplines).map(([k,v]) => '<li><strong>' + k.replace(/_/g,' ') + ':</strong> ' + v + '</li>').join('');
+                        card.innerHTML = '\n<h2>' + c.name + '</h2>\n<p><strong>Capital:</strong> ' + c.capital + '</p>\n<p><strong>ISD:</strong> ' + c.isd + '</p>\n<ul class="helplines">' + helplines + '</ul>';
+                        grid.appendChild(card);
+                    });
+                }
+                countEl.textContent = 'Countries listed: ' + data.countries.length;
+                render(data.countries);
+                filterInput.addEventListener('input', () => {
+                    const q = filterInput.value.trim().toLowerCase();
+                    if(!q){ render(data.countries); filterStats.textContent=''; return; }
+                    const filtered = data.countries.filter(c => c.name.toLowerCase().includes(q) || c.capital.toLowerCase().includes(q) || Object.entries(c.helplines).some(([k,v]) => k.toLowerCase().includes(q) || String(v).toLowerCase().includes(q)) );
+                    render(filtered);
+                    filterStats.textContent = filtered.length + ' / ' + data.countries.length + ' match';
+                });
+            })();
+            </script>
+        </main>
         <section class="footer">
             © 2023 Crisistwin <a href="contribute.html">Learn more</a>
         </section>
