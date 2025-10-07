@@ -14,13 +14,6 @@
         <div class="bar"></div>
         <nav class="navbar">
             <a href="index.html"><p>Home</p></a>
-            <a href="learn.html"><p>Learn</p></a>
-            <a href="contribute.html"><p>Contribute</p></a>
-
-            <form>
-                <input type="search" name="search" placeholder="Search …" />
-                <button type="submit" aria-label="Search">&#128270;</button> <!-- magnifying-glass glyph -->
-            </form>
         </nav>
         <div class="bar"></div>
 
@@ -60,7 +53,12 @@
                         const card = document.createElement('article');
                         card.className = 'country-card';
                         const helplines = Object.entries(c.helplines).map(([k,v]) => '<li><strong>' + k.replace(/_/g,' ') + ':</strong> ' + v + '</li>').join('');
-                        card.innerHTML = '\n<h2>' + c.name + '</h2>\n<p><strong>Capital:</strong> ' + c.capital + '</p>\n<p><strong>ISD:</strong> ' + c.isd + '</p>\n<p><strong>Currency:</strong> ' + (c.currency||'') + '</p>\n<ul class="helplines">' + helplines + '</ul>';
+                        const flagUrl = 'https://flagcdn.com/w40/' + c.iso2.toLowerCase() + '.png';
+                        card.innerHTML = '\n<h2><img class="country-flag" src="' + flagUrl + '" alt="' + c.name + ' flag">' + c.name + '</h2>' +
+                            '\n<p><strong>Capital:</strong> ' + c.capital + '</p>' +
+                            '\n<p><strong>ISD:</strong> ' + c.isd + '</p>' +
+                            '\n<p><strong>Currency:</strong> ' + (c.currency||'') + '</p>' +
+                            '\n<ul class="helplines">' + helplines + '</ul>';
                         grid.appendChild(card);
                     });
                 }

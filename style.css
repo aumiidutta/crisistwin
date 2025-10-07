@@ -92,6 +92,21 @@ main { padding: 20px; }
 .country-card ul { margin: 8px 0 0; padding-left: 18px; }
 .country-card li { font-size: 14px; margin-bottom: 2px; }
 
+/* Inline flag next to country name */
+.country-card h2 { 
+    display: flex; 
+    align-items: center; 
+    gap: 6px; 
+}
+
+.country-flag {
+    width: 24px;
+    height: 16px;
+    object-fit: cover;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 2px rgba(0,0,0,0.25);
+}
+
 /* Country search */
 .country-search { display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin:10px 0 15px; }
 .country-search input { flex:1 1 260px; padding:8px 10px; border:1px solid #777; border-radius:4px; font-size:14px; }

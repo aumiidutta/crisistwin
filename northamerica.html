@@ -60,7 +60,12 @@
                         const card = document.createElement('article');
                         card.className = 'country-card';
                         const helplines = Object.entries(c.helplines).map(([k,v]) => '<li><strong>' + k.replace(/_/g,' ') + ':</strong> ' + v + '</li>').join('');
-                        card.innerHTML = '\n<h2>' + c.name + '</h2>\n<p><strong>Capital:</strong> ' + c.capital + '</p>\n<p><strong>ISD:</strong> ' + c.isd + '</p>\n<p><strong>Currency:</strong> ' + (c.currency||'') + '</p>\n<ul class="helplines">' + helplines + '</ul>';
+                        const flagUrl = 'https://flagcdn.com/w40/' + c.iso2.toLowerCase() + '.png';
+                        card.innerHTML = '\n<h2><img class="country-flag" src="' + flagUrl + '" alt="' + c.name + ' flag">' + c.name + '</h2>' +
+                            '\n<p><strong>Capital:</strong> ' + c.capital + '</p>' +
+                            '\n<p><strong>ISD:</strong> ' + c.isd + '</p>' +
+                            '\n<p><strong>Currency:</strong> ' + (c.currency||'') + '</p>' +
+                            '\n<ul class="helplines">' + helplines + '</ul>';
                         grid.appendChild(card);
                     });
                 }
