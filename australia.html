@@ -41,10 +41,10 @@
                 "continent": "Oceania",
                 "updated": "2025-10-07",
                 "countries": [
-                    {"name": "Australia","iso2": "AU","isd": "+61","capital": "Canberra","helplines": {"emergency": "000","lifeline": "13 11 14","poisons": "13 11 26"}},
-                    {"name": "New Zealand","iso2": "NZ","isd": "+64","capital": "Wellington","helplines": {"emergency": "111","healthline": "0800 611 116","lifeline": "0800 543 354"}},
-                    {"name": "Fiji","iso2": "FJ","isd": "+679","capital": "Suva","helplines": {"emergency": "911","police": "917","fire": "910"}},
-                    {"name": "Papua New Guinea","iso2": "PG","isd": "+675","capital": "Port Moresby","helplines": {"police": "112","ambulance": "111","fire": "110"}}
+                    {"name": "Australia","iso2": "AU","isd": "+61","capital": "Canberra","currency":"AUD","helplines": {"emergency": "000","lifeline": "13 11 14","poisons": "13 11 26"}},
+                    {"name": "New Zealand","iso2": "NZ","isd": "+64","capital": "Wellington","currency":"NZD","helplines": {"emergency": "111","healthline": "0800 611 116","lifeline": "0800 543 354"}},
+                    {"name": "Fiji","iso2": "FJ","isd": "+679","capital": "Suva","currency":"FJD","helplines": {"emergency": "911","police": "917","fire": "910"}},
+                    {"name": "Papua New Guinea","iso2": "PG","isd": "+675","capital": "Port Moresby","currency":"PGK","helplines": {"police": "112","ambulance": "111","fire": "110"}}
                 ]
             }</script>
             <script>
@@ -61,7 +61,7 @@
                         const card = document.createElement('article');
                         card.className = 'country-card';
                         const helplines = Object.entries(c.helplines).map(([k,v]) => '<li><strong>' + k.replace(/_/g,' ') + ':</strong> ' + v + '</li>').join('');
-                        card.innerHTML = '\n<h2>' + c.name + '</h2>\n<p><strong>Capital:</strong> ' + c.capital + '</p>\n<p><strong>ISD:</strong> ' + c.isd + '</p>\n<ul class="helplines">' + helplines + '</ul>';
+                        card.innerHTML = '\n<h2>' + c.name + '</h2>\n<p><strong>Capital:</strong> ' + c.capital + '</p>\n<p><strong>ISD:</strong> ' + c.isd + '</p>\n<p><strong>Currency:</strong> ' + (c.currency||'') + '</p>\n<ul class="helplines">' + helplines + '</ul>';
                         grid.appendChild(card);
                     });
                 }
@@ -78,7 +78,7 @@
             </script>
         </main>
         <section class="footer">
-            © 2023 Crisistwin <a href="contribute.html">Learn more</a>
+            © 2025 Crisistwin <a href="contribute.html">Learn more</a>
         </section>
     </body>
 </html>
