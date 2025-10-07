@@ -35,14 +35,18 @@
             <div class="country-grid" id="country-grid"></div>
             <script id="continent-data" type="application/json">{
                 "continent": "South America",
-                "updated": "2025-10-07",
+                "updated": "2025-10-08",
                 "countries": [
-                    {"name": "Brazil","iso2": "BR","isd": "+55","capital": "Brasília","currency":"BRL","helplines": {"emergency": "190","ambulance": "192","fire": "193","women": "180"}},
-                    {"name": "Argentina","iso2": "AR","isd": "+54","capital": "Buenos Aires","currency":"ARS","helplines": {"emergency": "911","suicide_prevention": "135","women": "144"}},
-                    {"name": "Chile","iso2": "CL","isd": "+56","capital": "Santiago","currency":"CLP","helplines": {"emergency": "133","ambulance": "131","fire": "132"}},
-                    {"name": "Colombia","iso2": "CO","isd": "+57","capital": "Bogotá","currency":"COP","helplines": {"emergency": "123","gender_based_violence": "155"}}
+                    {"name": "Argentina","iso2": "AR","isd": "+54","capital": "Buenos Aires","currency":"ARS","languages":["Spanish"],"helplines": {"emergency": "911","suicide_prevention": "135","women": "144"}},
+                    
+                    {"name": "Brazil","iso2": "BR","isd": "+55","capital": "Brasília","currency":"BRL","languages":["Portuguese"],"helplines": {"emergency": "190","ambulance": "192","fire": "193","women": "180"}},
+                    
+                    {"name": "Chile","iso2": "CL","isd": "+56","capital": "Santiago","currency":"CLP","languages":["Spanish"],"helplines": {"emergency": "133","ambulance": "131","fire": "132"}},
+                    
+                    {"name": "Colombia","iso2": "CO","isd": "+57","capital": "Bogotá","currency":"COP","languages":["Spanish"],"helplines": {"emergency": "123","gender_based_violence": "155"}}
                 ]
-            }</script>
+            }
+            </script>
             <script>
             (function(){
                 const raw = document.getElementById('continent-data').textContent.trim();
@@ -60,6 +64,7 @@
                         const flagUrl = 'https://flagcdn.com/w40/' + c.iso2.toLowerCase() + '.png';
                         card.innerHTML = '\n<h2><img class="country-flag" src="' + flagUrl + '" alt="' + c.name + ' flag">' + c.name + '</h2>' +
                             '\n<p><strong>Capital:</strong> ' + c.capital + '</p>' +
+                            '\n<p><strong>Official language(s):</strong> ' + (c.languages? c.languages.join(', ') : '') + '</p>' +
                             '\n<p><strong>ISD:</strong> ' + c.isd + '</p>' +
                             '\n<p><strong>Currency:</strong> ' + (c.currency||'') + '</p>' +
                             '\n<ul class="helplines">' + helplines + '</ul>';
@@ -71,7 +76,7 @@
                 filterInput.addEventListener('input', () => {
                     const q = filterInput.value.trim().toLowerCase();
                     if(!q){ render(data.countries); filterStats.textContent=''; return; }
-                    const filtered = data.countries.filter(c => c.name.toLowerCase().includes(q) || c.capital.toLowerCase().includes(q) || Object.entries(c.helplines).some(([k,v]) => k.toLowerCase().includes(q) || String(v).toLowerCase().includes(q)) );
+                    const filtered = data.countries.filter(c => c.name.toLowerCase().includes(q) || c.capital.toLowerCase().includes(q) || (c.languages && c.languages.some(l => l.toLowerCase().includes(q))) || Object.entries(c.helplines).some(([k,v]) => k.toLowerCase().includes(q) || String(v).toLowerCase().includes(q)) );
                     render(filtered);
                     filterStats.textContent = filtered.length + ' / ' + data.countries.length + ' match';
                 });

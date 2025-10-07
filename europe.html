@@ -28,12 +28,15 @@
             <div class="country-grid" id="country-grid"></div>
             <script id="continent-data" type="application/json">{
                 "continent": "Europe",
-                "updated": "2025-10-07",
+                "updated": "2025-10-08",
                 "countries": [
-                    {"name": "Germany","iso2": "DE","isd": "+49","capital": "Berlin","currency":"EUR","helplines": {"emergency": "112","police": "110","suicide_prevention": "+49 800 111 0 111"}},
-                    {"name": "France","iso2": "FR","isd": "+33","capital": "Paris","currency":"EUR","helplines": {"emergency": "112","police": "17","fire": "18","medical": "15"}},
-                    {"name": "United Kingdom","iso2": "GB","isd": "+44","capital": "London","currency":"GBP","helplines": {"emergency": "999","non_emergency": "101","medical_advice": "111"}},
-                    {"name": "Italy","iso2": "IT","isd": "+39","capital": "Rome","currency":"EUR","helplines": {"emergency": "112","coast_guard": "1530","forest_fires": "1515"}}
+                    {"name": "France","iso2": "FR","isd": "+33","capital": "Paris","currency":"EUR","languages":["French"],"helplines": {"emergency": "112","police": "17","fire": "18","medical": "15"}},
+
+                    {"name": "Germany","iso2": "DE","isd": "+49","capital": "Berlin","currency":"EUR","languages":["German"],"helplines": {"emergency": "112","police": "110","suicide_prevention": "+49 800 111 0 111"}},
+
+                    {"name": "Italy","iso2": "IT","isd": "+39","capital": "Rome","currency":"EUR","languages":["Italian"],"helplines": {"emergency": "112","coast_guard": "1530","forest_fires": "1515"}},
+                    
+                    {"name": "United Kingdom","iso2": "GB","isd": "+44","capital": "London","currency":"GBP","languages":["English"],"helplines": {"emergency": "999","non_emergency": "101","medical_advice": "111"}}
                 ]
             }</script>
             <script>
@@ -53,6 +56,7 @@
                         const flagUrl = 'https://flagcdn.com/w40/' + c.iso2.toLowerCase() + '.png';
                         card.innerHTML = '\n<h2><img class="country-flag" src="' + flagUrl + '" alt="' + c.name + ' flag">' + c.name + '</h2>' +
                             '\n<p><strong>Capital:</strong> ' + c.capital + '</p>' +
+                            '\n<p><strong>Official language(s):</strong> ' + (c.languages? c.languages.join(', ') : '') + '</p>' +
                             '\n<p><strong>ISD:</strong> ' + c.isd + '</p>' +
                             '\n<p><strong>Currency:</strong> ' + (c.currency||'') + '</p>' +
                             '\n<ul class="helplines">' + helplines + '</ul>';
@@ -64,7 +68,7 @@
                 filterInput.addEventListener('input', () => {
                     const q = filterInput.value.trim().toLowerCase();
                     if(!q){ render(data.countries); filterStats.textContent=''; return; }
-                    const filtered = data.countries.filter(c => c.name.toLowerCase().includes(q) || c.capital.toLowerCase().includes(q) || Object.entries(c.helplines).some(([k,v]) => k.toLowerCase().includes(q) || String(v).toLowerCase().includes(q)) );
+                    const filtered = data.countries.filter(c => c.name.toLowerCase().includes(q) || c.capital.toLowerCase().includes(q) || (c.languages && c.languages.some(l => l.toLowerCase().includes(q))) || Object.entries(c.helplines).some(([k,v]) => k.toLowerCase().includes(q) || String(v).toLowerCase().includes(q)) );
                     render(filtered);
                     filterStats.textContent = filtered.length + ' / ' + data.countries.length + ' match';
                 });

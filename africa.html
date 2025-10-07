@@ -28,12 +28,15 @@
             <div class="country-grid" id="country-grid"></div>
             <script id="continent-data" type="application/json">{
                 "continent": "Africa",
-                "updated": "2025-10-07",
+                "updated": "2025-10-08",
                 "countries": [
-                    {"name": "Nigeria","iso2": "NG","isd": "+234","capital": "Abuja","currency":"NGN","helplines": {"emergency": "112","police": "112","fire": "112","ambulance": "112","mental_health": "+234 800 123 4567"}},
-                    {"name": "Kenya","iso2": "KE","isd": "+254","capital": "Nairobi","currency":"KES","helplines": {"emergency": "999","police": "999","fire": "999","ambulance": "999","gender_based_violence": "1195"}},
-                    {"name": "South Africa","iso2": "ZA","isd": "+27","capital": "Pretoria","currency":"ZAR","helplines": {"emergency": "112","police": "10111","ambulance": "10177","gender_based_violence": "0800 428 428"}},
-                    {"name": "Egypt","iso2": "EG","isd": "+20","capital": "Cairo","currency":"EGP","helplines": {"police": "122","ambulance": "123","fire": "180","tourist_police": "126"}}
+                    {"name": "Egypt","iso2": "EG","isd": "+20","capital": "Cairo","currency":"EGP","languages":["Arabic"],"helplines": {"police": "122","ambulance": "123","fire": "180","tourist_police": "126"}},
+
+                    {"name": "Kenya","iso2": "KE","isd": "+254","capital": "Nairobi","currency":"KES","languages":["English","Swahili"],"helplines": {"emergency": "999","police": "999","fire": "999","ambulance": "999","gender_based_violence": "1195"}},
+
+                    {"name": "Nigeria","iso2": "NG","isd": "+234","capital": "Abuja","currency":"NGN","languages":["English"],"helplines": {"emergency": "112","police": "112","fire": "112","ambulance": "112","mental_health": "+234 800 123 4567"}},
+
+                    {"name": "South Africa","iso2": "ZA","isd": "+27","capital": "Pretoria","currency":"ZAR","languages":["Zulu","Xhosa","Afrikaans","English","Sepedi","Setswana","Sesotho","Xitsonga","siSwati","Tshivenda","Ndebele"],"helplines": {"emergency": "112","police": "10111","ambulance": "10177","gender_based_violence": "0800 428 428"}}
                 ]
             }</script>
             <script>
@@ -52,11 +55,12 @@
                         card.className = 'country-card';
                         const helplines = Object.entries(c.helplines).map(([k,v]) => '<li><strong>' + k.replace(/_/g,' ') + ':</strong> ' + v + '</li>').join('');
                             const flagUrl = 'https://flagcdn.com/w40/' + c.iso2.toLowerCase() + '.png';
-                            card.innerHTML = '\n<h2><img class="country-flag" src="' + flagUrl + '" alt="' + c.name + ' flag">' + c.name + '</h2>' +
-                                '\n<p><strong>Capital:</strong> ' + c.capital + '</p>' +
-                                '\n<p><strong>ISD:</strong> ' + c.isd + '</p>' +
-                                '\n<p><strong>Currency:</strong> ' + (c.currency||'') + '</p>' +
-                                '\n<ul class="helplines">' + helplines + '</ul>';
+                card.innerHTML = '\n<h2><img class="country-flag" src="' + flagUrl + '" alt="' + c.name + ' flag">' + c.name + '</h2>' +
+                    '\n<p><strong>Capital:</strong> ' + c.capital + '</p>' +
+                    '\n<p><strong>Official language(s):</strong> ' + (c.languages? c.languages.join(', ') : '') + '</p>' +
+                    '\n<p><strong>ISD:</strong> ' + c.isd + '</p>' +
+                    '\n<p><strong>Currency:</strong> ' + (c.currency||'') + '</p>' +
+                    '\n<ul class="helplines">' + helplines + '</ul>';
                         grid.appendChild(card);
                     });
                 }
@@ -74,6 +78,7 @@
                     const filtered = data.countries.filter(c => {
                         if(c.name.toLowerCase().includes(q)) return true;
                         if(c.capital.toLowerCase().includes(q)) return true;
+                        if(c.languages && c.languages.some(l => l.toLowerCase().includes(q))) return true;
                         return Object.entries(c.helplines).some(([k,v]) => k.toLowerCase().includes(q) || String(v).toLowerCase().includes(q));
                     });
                     render(filtered);

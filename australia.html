@@ -28,12 +28,15 @@
             <div class="country-grid" id="country-grid"></div>
             <script id="continent-data" type="application/json">{
                 "continent": "Oceania",
-                "updated": "2025-10-07",
+                "updated": "2025-10-08",
                 "countries": [
-                    {"name": "Australia","iso2": "AU","isd": "+61","capital": "Canberra","currency":"AUD","helplines": {"emergency": "000","lifeline": "13 11 14","poisons": "13 11 26"}},
-                    {"name": "New Zealand","iso2": "NZ","isd": "+64","capital": "Wellington","currency":"NZD","helplines": {"emergency": "111","healthline": "0800 611 116","lifeline": "0800 543 354"}},
-                    {"name": "Fiji","iso2": "FJ","isd": "+679","capital": "Suva","currency":"FJD","helplines": {"emergency": "911","police": "917","fire": "910"}},
-                    {"name": "Papua New Guinea","iso2": "PG","isd": "+675","capital": "Port Moresby","currency":"PGK","helplines": {"police": "112","ambulance": "111","fire": "110"}}
+                    {"name": "Australia","iso2": "AU","isd": "+61","capital": "Canberra","currency":"AUD","languages":["English"],"helplines": {"emergency": "000","lifeline": "13 11 14","poisons": "13 11 26"}},
+
+                    {"name": "Fiji","iso2": "FJ","isd": "+679","capital": "Suva","currency":"FJD","languages":["English","Fijian","Fiji Hindi"],"helplines": {"emergency": "911","police": "917","fire": "910"}},
+
+                    {"name": "New Zealand","iso2": "NZ","isd": "+64","capital": "Wellington","currency":"NZD","languages":["English","Māori","NZ Sign Language"],"helplines": {"emergency": "111","healthline": "0800 611 116","lifeline": "0800 543 354"}},
+                    
+                    {"name": "Papua New Guinea","iso2": "PG","isd": "+675","capital": "Port Moresby","currency":"PGK","languages":["Tok Pisin","Hiri Motu","English"],"helplines": {"police": "112","ambulance": "111","fire": "110"}}
                 ]
             }</script>
             <script>
@@ -53,6 +56,7 @@
                             const flagUrl = 'https://flagcdn.com/w40/' + c.iso2.toLowerCase() + '.png';
                             card.innerHTML = '\n<h2><img class="country-flag" src="' + flagUrl + '" alt="' + c.name + ' flag">' + c.name + '</h2>' +
                                 '\n<p><strong>Capital:</strong> ' + c.capital + '</p>' +
+                                '\n<p><strong>Official language(s):</strong> ' + (c.languages? c.languages.join(', ') : '') + '</p>' +
                                 '\n<p><strong>ISD:</strong> ' + c.isd + '</p>' +
                                 '\n<p><strong>Currency:</strong> ' + (c.currency||'') + '</p>' +
                                 '\n<ul class="helplines">' + helplines + '</ul>';
@@ -64,7 +68,7 @@
                 filterInput.addEventListener('input', () => {
                     const q = filterInput.value.trim().toLowerCase();
                     if(!q){ render(data.countries); filterStats.textContent=''; return; }
-                    const filtered = data.countries.filter(c => c.name.toLowerCase().includes(q) || c.capital.toLowerCase().includes(q) || Object.entries(c.helplines).some(([k,v]) => k.toLowerCase().includes(q) || String(v).toLowerCase().includes(q)) );
+                    const filtered = data.countries.filter(c => c.name.toLowerCase().includes(q) || c.capital.toLowerCase().includes(q) || (c.languages && c.languages.some(l => l.toLowerCase().includes(q))) || Object.entries(c.helplines).some(([k,v]) => k.toLowerCase().includes(q) || String(v).toLowerCase().includes(q)) );
                     render(filtered);
                     filterStats.textContent = filtered.length + ' / ' + data.countries.length + ' match';
                 });

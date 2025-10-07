@@ -67,7 +67,10 @@ This project is informational only. Emergency and support numbers may change wit
 </p>
 
 ---
-### Have an improvement in mind? Open an issue or submit a pull request.
+##Contributions
+- To contribute, please read the contributing.md file.
+- If you want to add details for a country, please create an issue and ask to be assigned.
+- Create an issue to suggest an improvement
 ---
 
 © 2025 Crisistwin

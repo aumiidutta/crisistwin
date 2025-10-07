@@ -28,12 +28,15 @@
             <div class="country-grid" id="country-grid"></div>
             <script id="continent-data" type="application/json">{
                 "continent": "Asia",
-                "updated": "2025-10-07",
+                "updated": "2025-10-08",
                 "countries": [
-                    {"name": "India","iso2": "IN","isd": "+91","capital": "New Delhi","currency":"INR","helplines": {"emergency": "112","police": "100","fire": "101","ambulance": "102","women": "1091"}},
-                    {"name": "China","iso2": "CN","isd": "+86","capital": "Beijing","currency":"CNY","helplines": {"police": "110","fire": "119","ambulance": "120","traffic": "122"}},
-                    {"name": "Japan","iso2": "JP","isd": "+81","capital": "Tokyo","currency":"JPY","helplines": {"police": "110","ambulance_fire": "119","marine_emergency": "118"}},
-                    {"name": "Indonesia","iso2": "ID","isd": "+62","capital": "Jakarta","currency":"IDR","helplines": {"police": "110","ambulance": "118","fire": "113"}}
+                    {"name": "China","iso2": "CN","isd": "+86","capital": "Beijing","currency":"CNY","languages":["Standard Chinese"],"helplines": {"police": "110","fire": "119","ambulance": "120","traffic": "122"}},
+
+                    {"name": "India","iso2": "IN","isd": "+91","capital": "New Delhi","currency":"INR","languages":["English"],"helplines": {"emergency": "112","police": "100","fire": "101","ambulance": "102","women": "1091"}},
+
+                    {"name": "Indonesia","iso2": "ID","isd": "+62","capital": "Jakarta","currency":"IDR","languages":["Indonesian"],"helplines": {"police": "110","ambulance": "118","fire": "113"}},
+
+                    {"name": "Japan","iso2": "JP","isd": "+81","capital": "Tokyo","currency":"JPY","languages":["Japanese"],"helplines": {"police": "110","ambulance_fire": "119","marine_emergency": "118"}}
                 ]
             }</script>
             <script>
@@ -54,6 +57,7 @@
                             const flagUrl = 'https://flagcdn.com/w40/' + c.iso2.toLowerCase() + '.png';
                             card.innerHTML = '\n<h2><img class="country-flag" src="' + flagUrl + '" alt="' + c.name + ' flag">' + c.name + '</h2>' +
                                 '\n<p><strong>Capital:</strong> ' + c.capital + '</p>' +
+                                '\n<p><strong>Official language(s):</strong> ' + (c.languages? c.languages.join(', ') : '') + '</p>' +
                                 '\n<p><strong>ISD:</strong> ' + c.isd + '</p>' +
                                 '\n<p><strong>Currency:</strong> ' + (c.currency||'') + '</p>' +
                                 '\n<ul class="helplines">' + helplines + '</ul>';
@@ -65,7 +69,7 @@
                 filterInput.addEventListener('input', () => {
                     const q = filterInput.value.trim().toLowerCase();
                     if(!q){ render(data.countries); filterStats.textContent=''; return; }
-                    const filtered = data.countries.filter(c => c.name.toLowerCase().includes(q) || c.capital.toLowerCase().includes(q) || Object.entries(c.helplines).some(([k,v]) => k.toLowerCase().includes(q) || String(v).toLowerCase().includes(q)) );
+                    const filtered = data.countries.filter(c => c.name.toLowerCase().includes(q) || c.capital.toLowerCase().includes(q) || (c.languages && c.languages.some(l => l.toLowerCase().includes(q))) || Object.entries(c.helplines).some(([k,v]) => k.toLowerCase().includes(q) || String(v).toLowerCase().includes(q)) );
                     render(filtered);
                     filterStats.textContent = filtered.length + ' / ' + data.countries.length + ' match';
                 });

@@ -35,12 +35,17 @@
             <div class="country-grid" id="country-grid"></div>
             <script id="continent-data" type="application/json">{
                 "continent": "North America",
-                "updated": "2025-10-07",
+                "updated": "2025-10-08",
                 "countries": [
-                    {"name": "United States","iso2": "US","isd": "+1","capital": "Washington, D.C.","currency":"USD","helplines": {"emergency": "911","suicide_crisis": "988","poison_control": "1-800-222-1222"}},
-                    {"name": "Canada","iso2": "CA","isd": "+1","capital": "Ottawa","currency":"CAD","helplines": {"emergency": "911","suicide_crisis": "988","poison_control": "1-844-POISON-X"}},
-                    {"name": "Mexico","iso2": "MX","isd": "+52","capital": "Mexico City","currency":"MXN","helplines": {"emergency": "911","suicide_prevention": "800 911 2000","women": "765"}},
-                    {"name": "Jamaica","iso2": "JM","isd": "+1-876","capital": "Kingston","currency":"JMD","helplines": {"emergency": "119","fire": "110"}}
+                    {"name": "Canada","iso2": "CA","isd": "+1","capital": "Ottawa","currency":"CAD","languages":["English","French"],"helplines": {"emergency": "911","suicide_crisis": "988","poison_control": "1-844-POISON-X"}},
+
+                    {"name": "Guatemala","iso2": "GT","isd": "+502","capital": "Guatemala City","currency":"GTQ","languages":["Spanish"],"helplines": {"emergency": "110","women": "1572"}},
+
+                    {"name": "Jamaica","iso2": "JM","isd": "+1-876","capital": "Kingston","currency":"JMD","languages":["English"],"helplines": {"emergency": "119","fire": "110"}},
+
+                    {"name": "Mexico","iso2": "MX","isd": "+52","capital": "Mexico City","currency":"MXN","languages":["Spanish"],"helplines": {"emergency": "911","suicide_prevention": "800 911 2000","women": "765"}},
+
+                    {"name": "United States","iso2": "US","isd": "+1","capital": "Washington, D.C.","currency":"USD","languages":["English"],"helplines": {"emergency": "911","suicide_crisis": "988","poison_control": "1-800-222-1222"}}
                 ]
             }</script>
             <script>
@@ -60,6 +65,7 @@
                         const flagUrl = 'https://flagcdn.com/w40/' + c.iso2.toLowerCase() + '.png';
                         card.innerHTML = '\n<h2><img class="country-flag" src="' + flagUrl + '" alt="' + c.name + ' flag">' + c.name + '</h2>' +
                             '\n<p><strong>Capital:</strong> ' + c.capital + '</p>' +
+                            '\n<p><strong>Official language(s):</strong> ' + (c.languages? c.languages.join(', ') : '') + '</p>' +
                             '\n<p><strong>ISD:</strong> ' + c.isd + '</p>' +
                             '\n<p><strong>Currency:</strong> ' + (c.currency||'') + '</p>' +
                             '\n<ul class="helplines">' + helplines + '</ul>';
@@ -71,7 +77,7 @@
                 filterInput.addEventListener('input', () => {
                     const q = filterInput.value.trim().toLowerCase();
                     if(!q){ render(data.countries); filterStats.textContent=''; return; }
-                    const filtered = data.countries.filter(c => c.name.toLowerCase().includes(q) || c.capital.toLowerCase().includes(q) || Object.entries(c.helplines).some(([k,v]) => k.toLowerCase().includes(q) || String(v).toLowerCase().includes(q)) );
+                    const filtered = data.countries.filter(c => c.name.toLowerCase().includes(q) || c.capital.toLowerCase().includes(q) || (c.languages && c.languages.some(l => l.toLowerCase().includes(q))) || Object.entries(c.helplines).some(([k,v]) => k.toLowerCase().includes(q) || String(v).toLowerCase().includes(q)) );
                     render(filtered);
                     filterStats.textContent = filtered.length + ' / ' + data.countries.length + ' match';
                 });
