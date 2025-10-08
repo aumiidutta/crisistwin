@@ -1,145 +1,75 @@
-/* Common in all pages: bar, navbar, footer*/
-
-
-/*bar above & btw nav bar*/
-.bar{
-    background-color: black;
-    height: 2px;
-    width: 100%;
+/* Root variables & base styles */
+:root{
+    --bg: #ffffff;
+    --muted: #616161;
+    --text: #0b1530;
+    --primary: #0b6ef6;
+    --accent: #ffbf47;
+    --card-shadow: 0 8px 24px rgba(7,22,42,0.08);
+    --gap: 20px;
 }
 
+*{box-sizing: border-box}
+html,body{height:100%;}
+body{
+    margin:0;
+    font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    color:var(--text);
+    background:var(--bg);
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    line-height:1.45;
+}
+
+/* thin divider bar */
+.bar{background-color:#e6e6e6;height:1px;width:100%;}
 
 /* Navigation bar */
-.navbar{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-}
-
-.navbar p{
-    font-size: 20px;
-    font-weight: bold;
-}
+.navbar{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;gap:12px;}
+.navbar .brand img{height:44px;display:block}
+.nav-links a{color:var(--text);text-decoration:none;font-weight:600}
+.nav-links a:hover{color:var(--primary)}
 
 
-/*Logo section*/
-.logo{
-    margin-bottom: 50px;
-}
-
-.logo img{
-    width: 100%;
-    height: auto;
-}
-
-
-/* Continent card section in home page */
+/* Continent card section — responsive grid */
 .continent-card{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    margin-bottom: 50px;
+    max-width:1100px;margin:36px auto 48px;padding:0 18px;display:grid;gap:var(--gap);
+    grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
 }
 
 .card{
-    border: 2px solid blue;
-    width: fit-content;
-    height: fit-content;
-    display: flex;
-    flex-direction: column;
-    padding: 10px;
-    position: relative;
-    overflow: hidden;
+    display:block;background:#fff;border-radius:12px;overflow:hidden;text-decoration:none;color:inherit;box-shadow:var(--card-shadow);transition:transform .22s ease, box-shadow .22s ease;
 }
+.card:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(7,22,42,0.12)}
 
-.card img{
-    width: 400px;
-    height: 400px;
-    border: 2px solid black;
-}
+.card img{width:100%;height:auto;display:block;aspect-ratio:1/1;object-fit:cover}
 
-/* Fact overlay */
-.card .fact {
-    position: absolute;
-    inset: 10px; /* matches card padding */
-    background: rgba(0,0,0,0.7);
-    color: #fff;
-    font-size: 16px;
-    line-height: 1.3;
-    padding: 14px 16px;
-    border-radius: 4px;
-    display: flex;
-    align-items: center;
-    text-align: center;
-    opacity: 0;
-    transform: translateY(10px);
-    transition: opacity .35s ease, transform .35s ease;
-    pointer-events: none; /* ignore for hover so link still works */
-}
+.card-body{padding:12px 14px}
+.card-body h3{margin:0 0 8px;font-size:18px}
+.card-body .fact{color:var(--muted);font-size:14px;line-height:1.4}
 
-.card:hover .fact, .card:focus-within .fact {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* Improve link focus visibility */
-.card a:focus {
-    outline: 3px solid #ffbf47;
-    outline-offset: 4px;
-}
-
+/* For keyboard accessibility: focus-visible outlines */
+.card:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
 
 /* Footer */
-.footer{
-    background-color: brown;
-    color: white;
-    text-align: center;
-    padding: 10px;
+.footer{background:#0b1530;color:#fff;text-align:center;padding:14px 18px}
+
+/* Country listing layout (kept but namespaced) */
+main{padding:20px}
+#countries-count{font-weight:bold;margin-bottom:15px}
+.country-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px;margin-bottom:40px}
+.country-card{border:1px solid #e6e6e6;border-radius:6px;padding:12px 14px;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,0.04)}
+.country-card h2{font-size:20px;margin:0 0 6px}
+.country-card p{margin:4px 0}
+.country-card ul{margin:8px 0 0;padding-left:18px}
+.country-card li{font-size:14px;margin-bottom:2px}
+.country-card h2{display:flex;align-items:center;gap:6px}
+.country-flag{width:24px;height:16px;object-fit:cover;border:1px solid #ccc;box-shadow:0 0 2px rgba(0,0,0,0.08)}
+.country-search{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:10px 0 15px}
+.country-search input{flex:1 1 260px;padding:8px 10px;border:1px solid #d0d0d0;border-radius:6px;font-size:14px}
+.country-search span{font-size:13px;color:var(--muted)}
+
+/* Responsive tweaks */
+@media (max-width:480px){
+    .card-body{padding:10px}
 }
-
-/* Country listing layout */
-main { padding: 20px; }
-
-#countries-count { font-weight: bold; margin-bottom: 15px; }
-
-.country-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill,minmax(230px,1fr));
-    gap: 16px;
-    margin-bottom: 40px;
-}
-
-.country-card {
-    border: 1px solid #444;
-    border-radius: 6px;
-    padding: 12px 14px;
-    background: #f9f9f9;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.15);
-}
-
-.country-card h2 { font-size: 20px; margin: 0 0 6px; }
-.country-card p { margin: 4px 0; }
-.country-card ul { margin: 8px 0 0; padding-left: 18px; }
-.country-card li { font-size: 14px; margin-bottom: 2px; }
-
-/* Inline flag next to country name */
-.country-card h2 { 
-    display: flex; 
-    align-items: center; 
-    gap: 6px; 
-}
-
-.country-flag {
-    width: 24px;
-    height: 16px;
-    object-fit: cover;
-    border: 1px solid #ccc;
-    box-shadow: 0 0 2px rgba(0,0,0,0.25);
-}
-
-/* Country search */
-.country-search { display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin:10px 0 15px; }
-.country-search input { flex:1 1 260px; padding:8px 10px; border:1px solid #777; border-radius:4px; font-size:14px; }
-.country-search span { font-size:13px; color:#555; }
