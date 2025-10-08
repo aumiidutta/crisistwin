@@ -57,20 +57,10 @@ The inline script below it parses this JSON, renders country cards, and wires up
 ## Disclaimer
 This project is informational only. Emergency and support numbers may change without notice. Always verify with an official local authority when possible. The maintainers are not liable for any inaccuracies or outcomes resulting from use of the data.
 
-## Contributors
-<p align="center">
-	<a href="https://github.com/aumiidutta" target="_blank" rel="noopener noreferrer">
-		<img src="https://github.com/aumiidutta.png" alt="aumiidutta avatar" width="100" height="100" style="border-radius:50%;" />
-	</a>
-
-    <!-- Add your contributor details -->
-</p>
-
----
-##Contributions
+## Contribution
 - To contribute, please read the contributing.md file.
 - If you want to add details for a country, please create an issue and ask to be assigned.
 - Create an issue to suggest an improvement
----
+- Please make sure the code you have written follows the rules mentioned in contributing.md
 
 © 2025 Crisistwin
