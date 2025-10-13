@@ -6,14 +6,17 @@
         <title>
             Crisistwin
         </title>
-        <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
     </head>
 
 
     <body>
         <div class="bar"></div>
         <nav class="navbar">
-            <a href="https://aumiidutta.github.io/crisistwin/"><p>Home</p></a>
+            <a class="brand" href="index.html" aria-label="Crisistwin Home">
+                <img src="asset/crisistwin.png" alt="Crisistwin" />
+            </a>
         </nav>
         <div class="bar"></div>
 
@@ -75,45 +78,8 @@
                     {"name": "Vietnam","iso2": "VN","isd": "+84","capital": "Hanoi","currency":"VND","languages":["Vietnamese"],"helplines": {"police": "113","fire": "114","ambulance": "115"}}
                 ]
             }</script>
-            <script>
-            (function(){
-                const raw = document.getElementById('continent-data').textContent.trim();
-                let data; try { data = JSON.parse(raw); } catch(e){ console.error('Invalid JSON', e); return; }
-                const grid = document.getElementById('country-grid');
-                const countEl = document.getElementById('countries-count');
-                const filterInput = document.getElementById('country-filter');
-                const filterStats = document.getElementById('filter-stats');
-
-                function render(list){
-                    grid.innerHTML='';
-                    list.forEach(c => {
-                        const card = document.createElement('article');
-                        card.className = 'country-card';
-                        const helplines = Object.entries(c.helplines).map(([k,v]) => '<li><strong>' + k.replace(/_/g,' ') + ':</strong> ' + v + '</li>').join('');
-                            const flagUrl = 'https://flagcdn.com/w40/' + c.iso2.toLowerCase() + '.png';
-                            card.innerHTML = '\n<h2><img class="country-flag" src="' + flagUrl + '" alt="' + c.name + ' flag">' + c.name + '</h2>' +
-                                '\n<p><strong>Capital:</strong> ' + c.capital + '</p>' +
-                                '\n<p><strong>Official language(s):</strong> ' + (c.languages? c.languages.join(', ') : '') + '</p>' +
-                                '\n<p><strong>ISD:</strong> ' + c.isd + '</p>' +
-                                '\n<p><strong>Currency:</strong> ' + (c.currency||'') + '</p>' +
-                                '\n<ul class="helplines">' + helplines + '</ul>';
-                        grid.appendChild(card);
-                    });
-                }
-                countEl.textContent = 'Countries listed: ' + data.countries.length;
-                render(data.countries);
-                filterInput.addEventListener('input', () => {
-                    const q = filterInput.value.trim().toLowerCase();
-                    if(!q){ render(data.countries); filterStats.textContent=''; return; }
-                    const filtered = data.countries.filter(c => c.name.toLowerCase().includes(q) || c.capital.toLowerCase().includes(q) || (c.languages && c.languages.some(l => l.toLowerCase().includes(q))) || Object.entries(c.helplines).some(([k,v]) => k.toLowerCase().includes(q) || String(v).toLowerCase().includes(q)) );
-                    render(filtered);
-                    filterStats.textContent = filtered.length + ' / ' + data.countries.length + ' match';
-                });
-            })();
-            </script>
+            
         </main>
-        <section class="footer">
-            © 2025 Crisistwin
-        </section>
+        <section class="footer">© 2025 Crisistwin</section>
     </body>
 </html>

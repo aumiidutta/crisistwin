@@ -9,7 +9,7 @@ Crisistwin is a lightweight, static, browser-based directory of critical emergen
 - Client-side filtering (matches country name, capital, or helpline key/value).
 - Inline country flags (via [flagcdn.com](https://flagcdn.com) – no assets stored locally yet).
 - Consistent card layout with semantic markup for future accessibility improvements.
-- Easily extensible JSON-in-`<script type="application/json">` block per continent page (no external JS bundling).
+- Easily extensible JSON-in-`<script type="application/json">` block per continent page (no external JS bundling). A small shared `script.js` handles rendering and filtering.
 
 
 ## Repository Structure
@@ -23,7 +23,7 @@ southamerica.html         # South America country data + filter logic
 australia.html            # Oceania region page
 contributing.md           # Contribution guidelines
 style.css                 # Global + layout + card styles
-script.js                 # (currently empty – reserved for shared future logic)
+script.js                 # Shared rendering + filtering + footer year
 asset/                    # Static images (continents + logo)
 LICENSE                   # MIT License
 ```
@@ -51,16 +51,19 @@ Each continent page embeds a JSON object inside a `<script id="continent-data" t
 	]
 }
 ```
-The inline script below it parses this JSON, renders country cards, and wires up a filter input.
+The shared `script.js` reads this JSON, renders country cards, and wires up the filter input.
 
 
 ## Disclaimer
 This project is informational only. Emergency and support numbers may change without notice. Always verify with an official local authority when possible. The maintainers are not liable for any inaccuracies or outcomes resulting from use of the data.
 
+## Quick start
+- Open `index.html` in your browser. Click a continent to view countries and use the filter box to search.
+
 ## Contribution
-- To contribute, please read the contributing.md file.
+- To contribute, please read `contributing.md`.
 - If you want to add details for a country, please create an issue and ask to be assigned.
-- Create an issue to suggest an improvement
-- Please make sure the code you have written follows the rules mentioned in contributing.md
+- Create an issue to suggest an improvement.
+- Please make sure the code you have written follows the rules mentioned in `contributing.md`.
 
 © 2025 Crisistwin
